@@ -1,10 +1,31 @@
+import sys
+import secrets
 print("COUPON MANAGER")
 print("==============")
 
 
 
 def generate_coupons():
-    print("generate_coupons")
+   count=int(input("How many coupons (1-10)? "))
+   if count>10 or count <1:
+      print("Number must be between 1 and 10")
+      return
+
+   coupon_creation=("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+   print("Generated:")
+   for i in range(0,count):
+    coupon=""
+    for i in range(1,15):
+     if i==5 or i==10:
+       coupon+="-"
+     else:
+      coupon+=(secrets.choice(coupon_creation))
+    print(coupon)
+    with open ("coupon.txt","a") as file:
+       file.write(coupon +" : ACTIVE\n")
+  
+   
+
     
 
 def redeem_coupons():
