@@ -21,6 +21,14 @@ def generate_coupons():
      else:
       coupon+=(secrets.choice(coupon_creation))
     print(coupon)
+    try:
+       with open ("coupan.txt","r") as file:
+          for line in file:
+            if secrets.compare_digest(line,coupon):
+               i-=1
+    except:
+      pass
+    
     with open ("coupon.txt","a") as file:
        file.write(coupon +" : ACTIVE\n")
   
