@@ -1,5 +1,6 @@
 import sys
 import secrets
+import os
 print("COUPON MANAGER")
 print("==============")
 
@@ -32,13 +33,11 @@ def generate_coupons():
     with open ("coupon.txt","a") as file:
        file.write(coupon +" : ACTIVE\n")
   
-   
-
-    
-
 def redeem_coupons():
-    print("redeem_coupons")
-    
+   if not os.path.exists("coupon.txt"):
+      print("No coupons found")
+   else :
+      pass
     
 
 def show_all_coupons():
