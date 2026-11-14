@@ -41,7 +41,6 @@ def redeem_coupons():
       redeem=input("Enter coupon code: ").strip().upper()
       with open ("coupon.txt","r") as file:
          lines = file.readlines()
-         print(lines)
       coupon_found=False
       coupon_used=False
       for i in range(len(lines)):
@@ -52,13 +51,11 @@ def redeem_coupons():
                coupon_used=True
             else:
                lines[i] = code + " : USED\n"
-               print(lines[i])
             break
       if coupon_found :
           if coupon_used :
             print("This coupon was already used.")
           else:
-            # NEW: write the updated lines back to the file
             with open ("coupon.txt","w") as file:
                file.writelines(lines)
             print("Coupon redeemed successfully.")
@@ -67,9 +64,23 @@ def redeem_coupons():
 
 
 def show_all_coupons():
-    print("show_coupons")
-    
-    
+   if not os.path.exists("coupon.txt"):
+      print("No coupons found.")
+   else:
+      used=0
+      active=0
+      with open("coupon.txt", "r") as file:
+         print("ALL COUPONS")
+         print("===========\n")
+         for line in file:
+            if "USED" in line:
+               used += 1
+            elif "ACTIVE" in line:
+               active += 1
+            print(line, end="")
+      
+      print(f"\n\nActive: {active}")
+      print(f"Used  : {used}")
 
 def exit_program():
     sys.exit()
