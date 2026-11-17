@@ -14,24 +14,28 @@ def generate_coupons():
 
    coupon_creation=("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
    print("Generated:")
-   for i in range(0,count):
-    coupon=""
-    for i in range(1,15):
-     if i==5 or i==10:
-       coupon+="-"
-     else:
-      coupon+=secrets.choice(coupon_creation)
+   for n in range(count):
+    while True:
+      coupon = ""
+      for i in range(1, 15):
+         if i == 5 or i == 10:
+            coupon += "-"
+         else:
+            coupon += secrets.choice(coupon_creation)
+      exists = False
+
+      if os.path.exists("coupon.txt"):
+         with open ("coupon.txt","r") as file:
+            for line in file:
+               if line[0:14] == coupon:
+                  exists = True
+      if not exists:
+       break
+
     print(coupon)
-    try:
-       with open ("coupan.txt","r") as file:
-          for line in file:
-            if secrets.compare_digest(line,coupon):
-               i-=1
-    except:
-      pass
+    with open("coupon.txt", "a") as file:
+      file.write(coupon + " : ACTIVE\n")
     
-    with open ("coupon.txt","a") as file:
-       file.write(coupon +" : ACTIVE\n")
   
 def redeem_coupons():
 
@@ -67,7 +71,7 @@ def show_all_coupons():
    if not os.path.exists("coupon.txt"):
       print("No coupons found.")
    else:
-      used=0
+      used=0 
       active=0
       with open("coupon.txt", "r") as file:
          print("ALL COUPONS")
